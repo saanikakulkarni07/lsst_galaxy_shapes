@@ -1,0 +1,21 @@
+name: lsst-shapes
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - numpy
+  - scipy
+  - matplotlib
+  - astropy
+  - jupyter
+  - jupyterlab
+  - pandas
+  - scikit-learn
+  - scikit-image
+  - sep
+  - galsim
+  - photutils
+  - pip
+  - pip:
+    - lsst-resources
