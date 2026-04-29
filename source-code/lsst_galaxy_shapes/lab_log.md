@@ -69,3 +69,24 @@ The total ellipticity magnitude is $|e| = \sqrt{e_1^2 + e_2^2}$, and the positio
 - A non-zero mean or non-uniform position angle distribution can indicate **PSF systematics**
 
 In the LSST pipeline, the HSM Regauss estimator measures e1/e2 after correcting for the PSF.
+
+---
+
+## 2026-04-28
+
+### PSF diagnostics results (02_psf_diagnostics)
+
+Ran on DP0.2, visit 192350, detector 75.
+
+| Metric | Measured | LSST requirement | Status |
+|--------|----------|-------------------|--------|
+| Mean ΔT/T | 0.00041 | < 0.001 | Passes |
+| Mean Δe1 | -0.00149 | < 0.0002 | Fails (~7x over) |
+| Mean Δe2 | 0.00083 | < 0.0002 | Fails (~4x over) |
+
+Size residual is within spec. Ellipticity residuals are significantly above requirement — the PSF model has a systematic shape bias on this detector.
+
+**Caveats:**
+- This is one visit, one detector. The LSST requirement applies to survey-averaged statistics, so residuals should beat down across many visits.
+- Need to check the spatial residual plots for coherent patterns (gradients or rings = PSF model missing real variation) vs. random scatter (mean pulled by outliers).
+- Need to confirm whether reserved stars (`calib_psf_reserved`) were used. If validation fell back to fitting stars, these residuals are optimistic.
