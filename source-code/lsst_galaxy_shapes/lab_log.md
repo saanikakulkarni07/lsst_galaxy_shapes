@@ -90,3 +90,14 @@ Size residual is within spec. Ellipticity residuals are significantly above requ
 - This is one visit, one detector. The LSST requirement applies to survey-averaged statistics, so residuals should beat down across many visits.
 - ~~Need to check the spatial residual plots for coherent patterns (gradients or rings = PSF model missing real variation) vs. random scatter (mean pulled by outliers).~~ **Checked — no coherent patterns.** Residuals are spatially random, so the PSF model is capturing the real variation. The elevated ellipticity residual means are likely noise from limited star counts on one detector, not a systematic modeling failure.
 - Need to confirm whether reserved stars (`calib_psf_reserved`) were used. If validation fell back to fitting stars, these residuals are optimistic.
+
+### PSF model properties
+
+| Property | Value | Notes |
+|----------|-------|-------|
+| FWHM range | 0.640–0.646" | ~1% variation across CCD, very stable |
+| PSF ellipticity |e|| 0.0021–0.0196 | Small; nearly round PSF |
+
+Well-behaved detector — nearly round, spatially stable PSF. Consistent with the lack of coherent patterns in the residual plots.
+
+**Bug fix:** `computeShape()` returns a `Quadrupole` object in this pipeline version, not an ellipticity object. It has `getIxx()`/`getIyy()`/`getIxy()` but no `getE1()`/`getE2()`. Need to compute ellipticity manually from the moments (same math as cell 6).
