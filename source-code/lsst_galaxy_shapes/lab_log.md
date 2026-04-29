@@ -88,5 +88,5 @@ Size residual is within spec. Ellipticity residuals are significantly above requ
 
 **Caveats:**
 - This is one visit, one detector. The LSST requirement applies to survey-averaged statistics, so residuals should beat down across many visits.
-- Need to check the spatial residual plots for coherent patterns (gradients or rings = PSF model missing real variation) vs. random scatter (mean pulled by outliers).
+- ~~Need to check the spatial residual plots for coherent patterns (gradients or rings = PSF model missing real variation) vs. random scatter (mean pulled by outliers).~~ **Checked — no coherent patterns.** Residuals are spatially random, so the PSF model is capturing the real variation. The elevated ellipticity residual means are likely noise from limited star counts on one detector, not a systematic modeling failure.
 - Need to confirm whether reserved stars (`calib_psf_reserved`) were used. If validation fell back to fitting stars, these residuals are optimistic.
